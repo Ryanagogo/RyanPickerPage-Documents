@@ -91,7 +91,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Picker Page. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Ryan Roberts. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
