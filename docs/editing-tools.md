@@ -4,70 +4,87 @@ sidebar_position: 9
 
 # Editing & Canvas Tools
 
-These tools live on the header/toolbar and only do anything while the page is in **Edit Mode**
-(see [Getting Started](./getting-started#edit-mode-vs-live-mode)).
+Everything on this page happens in **Edit Mode**. The canvas itself pans and zooms in both
+modes — build at whatever magnification is comfortable.
 
-## Selecting
+## Selection
 
-- Click a widget to select it; Shift/Ctrl-click to add to the selection.
-- Drag on empty canvas to draw a selection box; every widget it touches is selected.
-- Selected widgets show resize/move handles (8 handles + a rotate handle) you can drag directly.
+- Click a widget to select it; Shift/Ctrl-click extends the selection.
+- Drag on empty canvas for a rubber-band selection box.
+- Selected widgets show eight resize handles plus a rotate handle, each with its own cursor.
 
-## Move / Resize / Rotate
+The Attribute Editor follows single selection; the toolbar tools below are how you edit many
+widgets at once.
 
-Drag a selected widget to move it, drag a handle to resize, or drag the rotate handle to spin it
-around its own center. Rotation is stored in degrees, wrapped to `[0, 360)`.
+## Direct manipulation
 
-## Nudge
+Drag a widget to move it. Drag a handle to resize — resizing behaves correctly on rotated
+widgets too. Drag the rotate handle to spin a widget around its center; rotation is stored in
+degrees, and rotated widgets stay fully functional in Live Mode (a rotated slider drags along
+its rotated axis).
 
-The **Nudge** tool moves the current selection by a fixed step using the on-screen arrow buttons,
-or the keyboard (arrow keys nudge by `KeyboardNudgeAmount`; holding Shift nudges by
-`KeyboardNudgeAmountShift`, both configurable Class Defaults).
+Arrow keys nudge the selection (Shift for a larger step; both distances are page Class
+Defaults). The toolbar's **Nudge** tool adds on-screen arrows with their own spinbox-set
+distance for repeated, exact steps.
 
-## Align & Distribute
+## Toolbar tools
 
-With 2+ widgets selected:
+One tool row is active at a time, toggled from the header:
 
-- **Align**: Left, Right, Top, Bottom, Horizontal Center, Vertical Center
-- **Distribute**: Horizontal, Vertical — spaces the selection evenly between its extremes
-
-## Size / Color / Label / Image toggles
-
-Bulk-apply toolbar toggles let you push a Width/Height, background/font Color, Label text (+ font
-size), or Image onto every widget in the current selection at once, instead of editing each one
-individually in the Attribute Editor.
-
-## Mirror tool
-
-Reflects each selected widget's position across a horizontal or vertical axis and negates its
-rotation. Does **not** remap slider channels or control/target-actor names — it's a layout tool,
-not a rig-mirroring tool (for mirroring an actual pose across a rig, see
-[Mirror Pose](./mirror-pose)).
-
-The mirror axis's anchor point depends on **Mirror Mode**, picked from the toolbar combo box:
-
-| Mode | Anchor |
+| Tool | Acts on selection |
 |---|---|
-| `Self` | Each widget mirrors around its own center independently |
-| `LastSelectedIncluded` | All widgets mirror around the last-selected widget's center (the last-selected widget itself also moves) |
-| `LastSelectedNotIncluded` | Same anchor, but the last-selected widget stays put |
-| `VisibleCanvas` | Mirrors around the center of the currently-visible canvas viewport |
+| **Image** | assigns a texture to every selected widget |
+| **Color** | pushes a background/font color onto every selected widget |
+| **Label** | sets label text and font size across the selection |
+| **Size** | sets exact width/height across the selection |
+| **Nudge** | fixed-step arrows, as above |
+| **Align** | left/right/top/bottom, horizontal/vertical centers, and even distribution |
+| **Mirror** | see below |
 
-Trigger with the **Mirror Horizontal** / **Mirror Vertical** buttons.
+Color edits from the toolbar (and the Attribute Editor) coalesce while you drag inside the
+color picker — one undo step per color session, not per mouse tick.
+
+## Mirror
+
+Builds one side of a page from the other: **Mirror Horizontal** / **Mirror Vertical** reflect
+every selected widget's position across an axis and negate its rotation. The axis is set by the
+**Mirror Mode** dropdown:
+
+| Mode | Reflects across |
+|---|---|
+| Self | each widget's own center — widgets flip in place |
+| Last Selected (included) | the last-selected widget's center; it moves too |
+| Last Selected (not included) | the last-selected widget's center; it stays put |
+| Visible Canvas | the center of what you can currently see |
+
+Mirroring is geometric only — it doesn't rename controls or swap slider channels. The usual
+workflow is mirror-then-retarget: mirror the left arm's widgets, then point the copies at the
+right-side controls. For repeatable left/right mirroring that remembers the pairing, see
+[Mirror Pose](./mirror-pose).
 
 ## Layer ordering (Z-order)
 
-Widgets live in one of three Z-order **layer bands** (Image, Label, Control) so, for example, a
-background Image can never accidentally render on top of a Select Button regardless of creation
-order. Within a band, the Outliner's **By Layer** display mode and its move-up/move-down actions
-let you reorder widgets front-to-back.
+Every widget lives in one of three stacked bands — **Images** at the bottom, **Labels** in the
+middle, interactive **Controls** on top. A backdrop Image can never cover a button, no matter
+when it was added. Within a band, reorder from the Outliner's
+[By Layer view](./attribute-editor-and-outliner) or the right-click menu.
 
-## Copy / Cut / Paste
+## Copy, cut, paste
 
-Standard Ctrl+C / Ctrl+X / Ctrl+V work on the current selection. Paste offsets to the cursor by
-default; a variant pastes in-place at the exact original position (used for cross-tab paste).
-Copying a Toggle Group member offers a matching "paste as new group" option.
+Ctrl+C / Ctrl+X / Ctrl+V on any selection. Pastes land at the cursor; pasting into another open
+page tab works, and an in-place paste preserves exact positions for page-to-page transfers.
+Pasted widgets keep their names where possible, deduplicated with a numeric suffix. Toggle
+Groups can be copied and pasted [as whole groups](./widget-toggle#toggle-groups).
 
-## Undo / Redo
+## Widget defaults
 
-See [Getting Started → Undo/Redo](./getting-started#undo--redo).
+What a freshly added widget looks like is layered, most specific last:
+
+1. **Class Defaults** — per-type starting values (colors, sizes, fonts...) editable on the
+   page's Class Defaults panel, one category per widget type.
+2. **Sticky Defaults** — right-click any widget → **Copy to Sticky Defaults**, and later
+   widgets of that type spawn matching it. Which property categories stick (color, font, corner
+   radius, size, rotation, text, image) is chosen in [Editor Settings](./editor-settings).
+
+These apply only to widgets from the Add Widget menu — pasted and loaded widgets keep their own
+data.

@@ -4,45 +4,48 @@ sidebar_position: 5
 
 # 2D Slider
 
-Like the [1D Slider](./widget-1d-slider), but drives **two** independent transform channels at
-once — an X axis and a Y axis, each its own `EPickerSliderChannel` — from a single draggable
-handle on a 2D pad. Common use: a Translate X / Translate Y "plant foot" pad, or Rotate X /
-Rotate Y for a look-at control.
+*One draggable handle, two transform channels.*
 
-The Attribute Editor warns (with a colored banner) if both axes are set to the same channel,
-since that's almost always a mistake.
+## In Live Mode
 
-## Key properties
+A 2D Slider is a pad: dragging its handle writes the X axis into one transform channel and the
+Y axis into another, simultaneously, on every assigned control/actor. Typical uses are a
+Translate X / Translate Y foot-plant pad or a Rotate X / Rotate Y eye-aim pad.
 
-- **Min / Max value** — `FVector2D` range, one component per axis
-- **Current value** / **Initial value** — `FVector2D`
-- **Active Channel X / Active Channel Y**
-- **Handle color, indented handle style**
-- **Locked**, **Step size**
+It follows the same channel discipline as the [1D Slider](./widget-1d-slider): each axis
+replaces only its own channel on the target, so a 2D pad coexists with other sliders driving
+the same control's remaining channels. Auto-key applies. **Reset to Initial Value** is on the
+right-click menu here too.
 
-## Blueprint API
+## Value model
+
+Identical to the 1D Slider but two-dimensional: **Min/Max** are per-axis pairs, **Current
+Value** is the live 2D value, **Initial Value** is the drag-proof authored default. **Step
+size** and **Locked** behave the same.
+
+The two channels are chosen independently (**Active Channel X**, **Active Channel Y**). Setting
+both axes to the *same* channel is almost always an authoring mistake, so the Attribute Editor
+flags it with a warning banner rather than letting the two axes silently fight over one value.
+
+## Authoring
+
+Attribute Editor fields: label/name, per-axis Min/Max, Current/Initial values, Active Channel X
+and Y (with the same-channel warning), handle color, indented-handle style, locked, step size,
+target assignment, and the common position/size/rotation/corner-radius block.
+
+## Scripting
 
 `URyanPicker2DSliderFunctionLibrary` (category `Ryan Picker Page|2DSlider`):
 
-| Function | Notes |
+| Function | |
 |---|---|
-| `GetMinValue`/`SetMinValue`, `GetMaxValue`/`SetMaxValue` | `FVector2D` |
-| `GetCurrentValue`/`SetCurrentValue` | `FVector2D` |
-| `GetInitialValue`/`SetInitialValue` | `FVector2D` |
-| `GetHandleColor`/`SetHandleColor` | |
-| `GetHandleIndented`/`SetHandleIndented` | |
-| `GetLocked`/`SetLocked` | |
-| `GetStepSize`/`SetStepSize` | |
-| `GetActiveChannelX`/`SetActiveChannelX`, `GetActiveChannelY`/`SetActiveChannelY` | `EPickerSliderChannel` |
-| `GetControlNames` | |
-| `GetTargetActorGUIDs`/`GetTargetActorBindingGUIDs` | |
+| `GetMinValue` / `SetMinValue` · `GetMaxValue` / `SetMaxValue` | `FVector2D`, per-axis |
+| `GetCurrentValue` / `SetCurrentValue` · `GetInitialValue` / `SetInitialValue` | `FVector2D` |
+| `GetActiveChannelX` / `SetActiveChannelX` · `GetActiveChannelY` / `SetActiveChannelY` | `EPickerSliderChannel` |
+| `GetHandleColor` / `SetHandleColor` · `GetHandleIndented` / `SetHandleIndented` | |
+| `GetLocked` / `SetLocked` · `GetStepSize` / `SetStepSize` | |
+| `GetControlNames` · `GetTargetActorGUIDs` / `GetTargetActorBindingGUIDs` | targets |
 
-### Event hooks
-
-Implement `BI_RyanPicker2DSlider`:
-
-- `OnSliderConstructed`
-- `OnSliderValueChanged(FVector2D NewValue)`
-- `OnSliderDragBegin`
-- `OnSliderDragEnd(bool bValueChanged)`
-- (inherited) `OnWidgetSelected`, `OnWidgetHighlighted`, `OnWidgetEditModeChanged`
+Blueprint subclasses can implement `BI_RyanPicker2DSlider`: `OnSliderConstructed`,
+`OnSliderValueChanged(FVector2D)`, `OnSliderDragBegin`, `OnSliderDragEnd(bool bValueChanged)`,
+plus the [shared lifecycle events](./blueprint-api#event-hooks).

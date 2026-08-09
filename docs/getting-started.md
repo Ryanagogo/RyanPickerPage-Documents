@@ -6,53 +6,61 @@ sidebar_position: 2
 
 ## Opening a page
 
-Open the plugin from **Tools → Ryan Picker Page**. Each click of "New Tab" opens another
-independent page tab — you can have several picker pages open at once, each tracking its own
-Control Rig, canvas view, and Edit/Live mode.
+**Tools → Ryan Picker Page** opens a page in a new editor tab. The **New Tab** button in the
+page header opens more — each tab is fully independent, with its own file, its own Control Rig
+selection, and its own canvas view. Renaming a page (its title is editable in Edit Mode) renames
+its tab, so a wall of open pickers stays navigable.
 
-A page starts empty. Everything you see — buttons, sliders, the header, the sidebars — is built
-procedurally in C++ when the tab opens; there's no Blueprint widget tree to break.
+## Two modes
 
-## Edit Mode vs. Live Mode
+The Edit Mode button in the header switches the whole page between:
 
-The page has two modes, toggled with the Edit Mode button in the header:
+**Live Mode** — the animating mode. Clicking widgets selects rig controls and actors; dragging
+sliders drives transforms; hovering a widget shows a tooltip of what it's wired to. The layout
+itself is untouchable.
 
-- **Live Mode** — the mode you animate in. Clicking a widget selects its Control Rig
-  controls/target actors in the viewport (and Sequencer, if bound); dragging a slider drives the
-  transform live. Nothing about the layout can be changed.
-- **Edit Mode** — the mode you build the page in. Widgets show resize/move handles, a
-  right-click gives you an **Add Widget** menu, and two sidebars appear:
-  - **Outliner** (left) — every widget on the page, grouped by type, Z-order band, or Toggle
-    Group
-  - **Attribute Editor** (right) — the properties of whatever's currently selected
+**Live Mode is where a finished page spends its life.** Everything under
+[Editing & Canvas Tools](./editing-tools) exists to get you here.
 
-Both sidebars can be toggled independently so you can work with just the canvas visible.
+**Edit Mode** — the building mode. Widgets grow move/resize/rotate handles, right-clicking
+empty canvas opens the **Add Widget** menu, and two collapsible sidebars appear: the
+[Outliner](./attribute-editor-and-outliner) on the left, the
+[Attribute Editor](./attribute-editor-and-outliner) on the right.
 
-## Basic workflow
+## Build your first page
 
-1. Enter Edit Mode.
-2. Right-click empty canvas space → **Add Widget** → pick a widget type (see the Widget Types
-   pages). It spawns at your cursor.
-3. Select it and use the Attribute Editor to set its label/color/size, and its Control Rig
-   controls or target actors (see [Control Rig & Target Actors](./control-rig-and-targets)).
-4. Use the toolbar's Align/Distribute/Nudge/Mirror tools and the canvas selection box to lay
-   multiple widgets out (see [Editing & Canvas Tools](./editing-tools)).
-5. Exit Edit Mode and click around to confirm the page selects/drives what you expect.
-6. **File → Save** (or **Save As**) to write the page out as a `.json` file (see
-   [Saving, Loading & Files](./save-load-and-files)).
+A minimal one-leg picker, end to end:
 
-## Undo / Redo
+1. Open a Level Sequence containing your character and its Control Rig, then open a picker page.
+   The header's rig dropdown fills itself from the focused sequence — pick your rig (it
+   auto-selects if there's only one).
+2. Enter **Edit Mode**.
+3. In the viewport or Anim Outliner, select the thigh control. Right-click the canvas →
+   **Add Widget → Selection Button**. By default a new button seeds its target list from the
+   current selection, so this button already drives the thigh.
+4. Repeat for calf and foot. Use the label field in the
+   [Attribute Editor](./attribute-editor-and-outliner) to name each button, and drag them into a
+   leg-shaped column.
+5. Select all three and try the [Align tools](./editing-tools) to straighten the column.
+6. Exit Edit Mode. Click the buttons — each selects its control. That's the loop; everything else
+   is refinement.
+7. **File → Save** writes the page to a JSON file anywhere you like — see
+   [Saving, Loading & Files](./save-load-and-files).
 
-Every edit-mode change (move, resize, add, delete, paste, color change, etc.) is captured onto an
-in-memory undo stack (30 steps by default, configurable — see [Editor Settings](./editor-settings)).
-Undo/Redo buttons sit in the header; standard Ctrl+Z / Ctrl+Y also work while the page has focus.
-Bookmarks have their own, completely separate undo stack (see [Bookmarks](./bookmarks)).
+## Undo, redo, and safety nets
 
-## Multiple tabs, multiple Control Rigs
+Every Edit Mode change — moves, resizes, adds, deletes, pastes, color edits — lands on the
+page's undo stack (30 steps by default; see [Editor Settings](./editor-settings)). Ctrl+Z /
+Ctrl+Y, or the header buttons. Dragging inside a color picker coalesces into a single undo step
+rather than one per tick, so undoing a color change undoes the whole drag.
 
-A page tab tracks its own **Current Control Rig** (picked from the header combo box, populated
-from whatever Control Rigs are bound in the currently-focused Level Sequence) and its own
-canvas pan/zoom. Switching Level Sequences with a tab left open refreshes that combo box
-automatically. Where you left off per *file* (pan/zoom, active rig, Edit/Live mode) is restored
-automatically the next time you load that same file — see
+[Bookmarks](./bookmarks) keep a separate undo stack of their own — layout undo never disturbs
+your saved views, and vice versa.
+
+## Picking up where you left off
+
+Per saved file, the plugin remembers your canvas pan/zoom, which Control Rig was active, and
+whether you were in Edit or Live Mode — all restored automatically the next time that file is
+loaded, on this machine. This lives outside the page file itself, so sharing a page with a
+teammate shares the layout, not your viewport habits. See
 [Saving, Loading & Files](./save-load-and-files#session-state).

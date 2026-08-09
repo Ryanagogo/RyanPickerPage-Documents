@@ -4,69 +4,67 @@ sidebar_position: 6
 
 # Toggle
 
-A two-state button (**State A** / **State B**, e.g. IK/FK) that swaps its label, color, assigned
-controls/actors, and optional Python script depending on which state is active. Clicking it in
-Live Mode flips state and applies whichever state just became active.
+*A two-state switch — IK/FK being the canonical use.*
 
-## Per-state fields
+## In Live Mode
 
-Every visual/behavioral field is authored **separately for each state**, via the function
-library's `*ForState` functions:
-
-- Label
-- Control names
-- Target actor GUIDs (+ Sequencer binding GUIDs)
-- Background color, font color, font size
-- Python script
+A Toggle holds two states, **A** and **B**. Clicking flips between them, and the state that
+just became active applies its own configuration: its label, its colors, its assigned rig
+controls and actors get selected, and its own [Python script](./python-scripting) runs.
+Everything about a Toggle is authored **per state** — an IK/FK toggle can select the IK
+controls in one state and the FK controls in the other, wearing a different color for each.
 
 ## Toggle Groups
 
-Toggles can be grouped into a **Toggle Group** (radio-button style): only one member of the group
-can be "on" (in its configured On State) at a time — turning one on turns the others off. Groups
-are managed from the right-click popup menu and shown as their own view in the Outliner (**By
-Group** display mode). A grouped Toggle shows a distinct border in the canvas.
+Group several Toggles (right-click menu, with two or more selected) and they behave like radio
+buttons: each Toggle declares which of its states counts as "on" (its **On State**), and
+switching one group member on switches every other member off. Grouped widgets wear a distinct
+border on the canvas, groups can be named and renamed, and the
+[Outliner's **By Group** view](./attribute-editor-and-outliner) lists each group's members under
+its header. Copying a group offers a paste that recreates it as a brand-new group, members and
+name included.
 
-## Driving a Control Rig bool anim channel
+## Driving a rig's bool channel
 
-A Toggle can optionally be wired straight to a **bool animation channel** on a Control Rig
-control, instead of (or alongside) swapping control-name lists:
+Beyond selecting controls, a Toggle can be bound directly to a **bool animation channel** on a
+Control Rig control — the actual IK/FK switch attribute on the rig, for instance:
 
-- `bUseAnimChannelBool` — master enable
-- `AnimChannelParentControlName` — which control owns the channel
-- `AnimChannelName` — the bool channel's name
-- `AnimChannelTrueState` — which state (A or B) corresponds to the channel being `true`
+- Name the channel's **parent control** and the **channel** itself, and pick which Toggle state
+  means the channel is *true*.
+- Clicking the Toggle then also writes the bool value.
+- The binding is two-way: the page polls the channel's live value and reflects it back into the
+  Toggle's visual state, so scrubbing past a keyed IK/FK switch flips the button on the page
+  without re-running its click behavior.
 
-When enabled, clicking the Toggle also writes to that bool channel, and the Toggle can read the
-channel back interactively to stay in sync with its live value.
+## Authoring
 
-## Blueprint API
+Attribute Editor fields: per-state label / background color / font color / font size / control
+names / target actors / Python script; the current state and the On State; the anim-channel-bool
+binding (enable, parent control, channel name, true state); and the common
+position/size/rotation/corner-radius block.
 
-`URyanPickerToggleFunctionLibrary` (category `Ryan Picker Page|Toggle`):
+## Scripting
 
-| Function | Notes |
+`URyanPickerToggleFunctionLibrary` (category `Ryan Picker Page|Toggle`). Most functions take an
+`ERyanPickerToggleState` and read/write one state's configuration:
+
+| Function | |
 |---|---|
-| `GetToggleState`/`SetToggleState` | current `ERyanPickerToggleState` (StateA/StateB) |
-| `GetOnState`/`SetOnState` | which state counts as "on" for group exclusivity |
-| `GetLabelForState`/`SetLabelForState` | |
-| `GetControlNamesForState`/`SetControlNamesForState` | |
-| `GetTargetActorGuidsForState`/`SetTargetActorGuidsForState` | |
-| `GetTargetActorBindingGuidsForState`/`SetTargetActorBindingGuidsForState` | |
-| `GetColorForState`/`SetColorForState` | |
-| `GetFontColorForState`/`SetFontColorForState` | |
-| `GetFontSizeForState`/`SetFontSizeForState` | |
-| `GetPythonScriptForState`/`SetPythonScriptForState` | |
-| `GetUseAnimChannelBool`/`SetUseAnimChannelBool` | |
-| `GetAnimChannelParentControlName`/`SetAnimChannelParentControlName` | |
-| `GetAnimChannelName`/`SetAnimChannelName` | |
-| `GetAnimChannelTrueState`/`SetAnimChannelTrueState` | |
+| `GetToggleState` / `SetToggleState` | current state |
+| `GetOnState` / `SetOnState` | which state is "on" for group exclusivity |
+| `GetLabelForState` / `SetLabelForState` | |
+| `GetControlNamesForState` / `SetControlNamesForState` | |
+| `GetTargetActorGuidsForState` / `SetTargetActorGuidsForState` | |
+| `GetTargetActorBindingGuidsForState` / `SetTargetActorBindingGuidsForState` | |
+| `GetColorForState` / `SetColorForState` · `GetFontColorForState` / `SetFontColorForState` | |
+| `GetFontSizeForState` / `SetFontSizeForState` | |
+| `GetPythonScriptForState` / `SetPythonScriptForState` | |
+| `GetUseAnimChannelBool` / `SetUseAnimChannelBool` | anim-channel binding master switch |
+| `GetAnimChannelParentControlName` / `SetAnimChannelParentControlName` | |
+| `GetAnimChannelName` / `SetAnimChannelName` | |
+| `GetAnimChannelTrueState` / `SetAnimChannelTrueState` | |
 
-### Event hooks
-
-Implement `BI_RyanPickerToggle`:
-
-- `OnToggleConstructed`
-- `OnToggleClicked`
-- `OnToggleStateChanged(ERyanPickerToggleState NewState)`
-- `OnControlRigControlsSelected`
-- `OnTargetActorsSelected`
-- (inherited) `OnWidgetSelected`, `OnWidgetHighlighted`, `OnWidgetEditModeChanged`
+Blueprint subclasses can implement `BI_RyanPickerToggle`: `OnToggleConstructed`,
+`OnToggleClicked`, `OnToggleStateChanged(ERyanPickerToggleState)`,
+`OnControlRigControlsSelected`, `OnTargetActorsSelected`, plus the
+[shared lifecycle events](./blueprint-api#event-hooks).

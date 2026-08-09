@@ -4,35 +4,44 @@ sidebar_position: 8
 
 # Image
 
-A pure image display widget — no text, no click behavior. Use it for a character portrait, a
-background diagram, or decorative art behind other widgets (send it to the back layer with the
-layer-order tools — see [Editing & Canvas Tools](./editing-tools)).
+*Artwork on the canvas — character portraits, body diagrams, backdrops.*
 
-## Key properties
+Images are the visual foundation of a good picker: a character turnaround or body outline
+behind the buttons turns an abstract button grid into something readable at a glance. Like
+[Labels](./widget-label), they have no Live Mode click behavior, and they live in the bottom
+[layer band](./editing-tools#layer-ordering-z-order) so they can never cover an interactive
+control.
+
+## Crop pan/zoom
+
+Rather than pre-cropping textures in an image editor, frame them on the page: **Image Scale**
+zooms into the source texture and **Image Offset** pans the visible window across it. One
+character sheet can feed a dozen Image widgets, each framing a different body part. The same
+two controls exist on a Label's background image.
+
+## Authoring
 
 - **Texture**
-- **Stretch mode** (`EStretch::Type`)
-- **Crop pan/zoom** — independent scale + offset so you can frame a sub-region of a larger source
-  texture without pre-cropping the asset
-- Corner radius (+ override toggle)
+- **Stretch mode** — how the texture fits the widget's rectangle
+- **Image Scale** / **Image Offset** — the crop window
+- Corner radius (defaults to square, like Labels)
+- The common position/size/rotation block
 
 ## Rendering
 
-Image and Label both render through a shared `UMaterialInstanceDynamic` on
-`M_RyanPickerRoundedImage` instead of a plain texture brush. This one material handles
-corner-rounding, stretch-mode fit math, and the crop pan/zoom transform in a single pass, so both
-widget types get identical rounding/cropping behavior for free.
+Images and Labels draw through a dynamic instance of one shared material
+(`M_RyanPickerRoundedImage`) rather than a plain texture brush. Corner rounding, stretch-mode
+fit, and the crop window are all computed in that single material pass — which is why the two
+types behave pixel-identically and why cropping costs nothing extra.
 
-## Blueprint API
+## Scripting
 
 `URyanPickerImageFunctionLibrary` (category `Ryan Picker Page|Image`):
 
-| Function | Notes |
+| Function | |
 |---|---|
-| `GetImageTexture`/`SetImageTexture` | |
-| `GetStretchMode`/`SetStretchMode` | `EStretch::Type` |
-| `GetImageScale`/`SetImageScale` | crop zoom |
-| `GetImageOffset`/`SetImageOffset` | crop pan, `FVector2D` |
+| `GetImageTexture` / `SetImageTexture` | |
+| `GetStretchMode` / `SetStretchMode` | |
+| `GetImageScale` / `SetImageScale` · `GetImageOffset` / `SetImageOffset` | crop pan/zoom |
 
-Position/size/rotation/corner-radius/widget-name live on `URyanPickerWidgetFunctionLibrary` — see
-[Blueprint API](./blueprint-api).
+No event-hook interface; the [shared widget functions](./blueprint-api) apply.

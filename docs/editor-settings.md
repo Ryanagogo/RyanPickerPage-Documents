@@ -4,27 +4,37 @@ sidebar_position: 15
 
 # Editor Settings
 
-A global, **per-machine** settings dialog (File → Settings on any page), distinct from a page's
-own saved file — these apply across every page you open on this machine, regardless of which
-file is loaded. Persisted to `editor_settings.json` (see
-[Saving, Loading & Files](./save-load-and-files#where-settings-live-on-disk)); a missing or
-malformed field just falls back to its built-in default, no explicit versioning needed.
+**File → Settings…** opens the plugin's global settings dialog. These are **per-machine**
+preferences applying to every page you open, as opposed to per-page Class Defaults (saved in
+the page Blueprint) and per-file data (saved in the page file).
 
-| Setting | Default | Notes |
+## New-widget behavior
+
+| Setting | Default | |
 |---|---|---|
-| Default Bookmark Count | 4 | number of user bookmark slots on a new page (max 8) |
-| Undo Stack Depth | 30 | steps kept on the main page undo/redo stack |
-| Default New Widget Size | 200×100 | starting size for a widget spawned via Add Widget |
-| Override Default New Widget Size | off | when on, the value above wins over the page Blueprint's own Class Defaults value instead of deferring to it |
-| Default Interactive Selection Mode | off | whether new SelectButtons start with Interactive Selection Mode enabled |
-| Seed New Widget Targets From Selection | on | whether new SelectButton/1D/2D Slider widgets pre-fill their targets from the current viewport/rig selection |
-| Session State Max Age (days) | 90 | per-file session-state entries not written to in longer than this are pruned; `0` = never prune |
-| Default Corner Radius | 10 | fallback rounding radius for widget types not customizing their own Class Default |
-| Override Default Corner Radius | off | same override-gate shape as the widget-size override above |
-| Sticky Defaults categories | all on | 7 independent toggles (Color, Font, Corner Radius, Size, Rotation, Text, Image) gating which categories Sticky Widget Defaults actually applies — see [Attribute Editor & Outliner](./attribute-editor-and-outliner#class-defaults--sticky-widget-defaults) |
+| Seed New Widget Targets From Selection | on | new buttons/sliders pre-fill targets from the current selection — see [How targets get assigned](./control-rig-and-targets#how-targets-get-assigned) |
+| Default Interactive Selection Mode | off | new Select Buttons start in [Interactive Selection Mode](./widget-select-button#interactive-selection-mode) |
+| Default New Widget Size | 200 × 100 | with an **Override** checkbox — off means the page's own Class Defaults value wins; on means this dialog's value replaces it |
+| Default Corner Radius | 10 | same Override-checkbox arrangement; the global fallback in the [rounding cascade](./attribute-editor-and-outliner#corner-radius) |
 
-## Relationship to Class Defaults
+## Sticky Defaults categories
 
-These settings are a per-machine convenience layer, not the source of truth: a page Blueprint's
-own **Class Defaults** panel is authoritative for `DefaultNewWidgetSize` and per-type appearance
-defaults unless you explicitly flip the matching "Override" setting above.
+Seven checkboxes — **Color, Font, Corner Radius, Size, Rotation, Text, Image**, all on by
+default — controlling which property groups
+[Copy to Sticky Defaults](./editing-tools#widget-defaults) actually carries onto new widgets.
+Turn off Size and Rotation, say, to make sticky defaults purely cosmetic.
+
+## Page & housekeeping
+
+| Setting | Default | |
+|---|---|---|
+| Default Bookmark Count | 4 | user [bookmark](./bookmarks) slots on a new page (max 8) |
+| Undo Stack Depth | 30 | main page undo/redo steps |
+| Session State Max Age | 90 days | [session-state](./save-load-and-files#session-state) entries older than this are pruned; 0 disables pruning |
+
+## The override pattern
+
+For values that also exist as page Class Defaults (widget size, corner radius), this dialog
+deliberately defers: the page Blueprint's Class Defaults are authoritative until you tick the
+matching **Override** checkbox here. That keeps a shared page Blueprint's tuning intact by
+default while still letting an individual machine insist on its own values.

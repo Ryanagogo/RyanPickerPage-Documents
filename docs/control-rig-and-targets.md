@@ -4,49 +4,56 @@ sidebar_position: 12
 
 # Control Rig & Target Actors
 
-Picker widgets don't act on hardcoded object references — they act on **Control Rig control
-names** and/or **target actor identity**, resolved live against whatever's currently focused so
-the same page works across different level/sequence contexts.
+*What a widget is "wired to", and how that wiring survives sessions, sequences, and respawns.*
 
-## Current Control Rig
+Widgets never hold hard object references. They store **names and identities** — Control Rig
+control names, actor identities — and resolve them against the live editor state at the moment
+you click. That indirection is what lets one saved page keep working across editor restarts,
+different levels, and Sequencer's actor lifecycle.
 
-Each page tab has its own **Current Control Rig**, picked from the header combo box. The combo
-box's options come from whichever Control Rigs are bound in the currently-focused Level Sequence;
-it re-populates automatically if you switch sequences with a tab left open, preserving your
-selection if it's still bound, or auto-selecting if exactly one rig is now available.
+## The current Control Rig
 
-Widgets that reference **control names** (Select Button, Toggle, 1D/2D Slider) resolve those
-names against the Current Control Rig at click/drag time.
+Each page tab has one **current Control Rig**, chosen in the header dropdown. The dropdown
+lists the rigs bound in the **focused Level Sequence** and maintains itself: switch to a
+different sequence with the picker still open and the list rebuilds — keeping your choice if
+that rig is still bound, auto-selecting when exactly one rig is available.
+
+Control names on widgets are resolved against this rig. The same page therefore drives any
+character sharing the rig's control naming — build one biped page, use it for the whole cast.
+([Labels](./widget-label) can display the current rig's name so animators always know which
+character a tab is driving.)
 
 ## Target actors
 
-Widgets can also reference **target actors** directly (independent of any Control Rig) — actors
-in the level, or Sequencer-bound actors. This lets a single button drive both a Control Rig
-control *and* an actor transform, or drive an actor with no rig involved at all.
+Widgets can also target **actors** — instead of or alongside rig controls. A button might
+select a prop, a camera, and a rig control together; a slider can drive an actor's transform
+channel directly, auto-keying into Sequencer like any hand animation.
 
 ### Sequencer spawnables
 
-A normal level actor's identity is its `AActor::GetActorGuid()`. Sequencer **spawnable** actors
-are re-spawned each session with a *new* GUID, so a saved reference by actor GUID would silently
-break. Every target-actor field therefore carries a second, parallel array of **Sequencer binding
-GUIDs** as a fallback — if the actor GUID doesn't resolve, the widget resolves the actor via its
-Sequencer binding in the focused Level Sequence instead.
+Ordinary level actors are identified by their stable actor GUID. **Spawnables are the trap**:
+Sequencer respawns them with a *fresh* actor GUID every session, which would silently break any
+page saved against the old one. So every actor assignment on every widget stores two identities
+in parallel — the actor GUID *and* the actor's Sequencer **binding GUID**, which is stable
+across respawns. Resolution tries the actor GUID and falls back to the binding. You never
+manage this; it's why spawnable-heavy pages keep working next week.
 
-## Interactive Selection Mode
+## How targets get assigned
 
-Normally a widget drives a fixed, pre-authored list of controls/actors. **Interactive Selection
-Mode** (available on Select Button, and as a page-wide new-widget default) instead reads back
-whatever is *currently selected* in the viewport/rig when clicked — meant for a single-item
-button representing "whatever's selected" rather than a specific target. See
-[Select Button](./widget-select-button#interactive-selection-mode).
+In Edit Mode, with a widget selected:
 
-A related editor setting, **Seed New Widget Targets From Selection**, makes newly-spawned
-SelectButton/1D Slider/2D Slider widgets start with their target list pre-filled from whatever's
-currently selected, instead of empty — see [Editor Settings](./editor-settings).
+- **Seed at spawn** (default, [configurable](./editor-settings)): a new widget's target list is
+  pre-filled from whatever controls/actors are selected when you add it. Select in viewport →
+  Add Widget is the whole authoring gesture.
+- The Attribute Editor's target fields show a resolved, human-readable summary — actual actor
+  and control names, not GUIDs — so you can verify wiring at a glance. Broken references
+  (deleted actors, renamed controls) simply resolve to nothing rather than erroring the page.
 
-## Selection is rig-agnostic
+## Two selection philosophies
 
-Gathering "what's currently selected" for Interactive Selection Mode / target-seeding
-deliberately isn't scoped to only the active rig dropdown selection — it reflects the actual
-viewport/outliner selection regardless of which rig combo box entry is active, so it behaves the
-way an animator expects when working across multiple rigs.
+[Select Buttons](./widget-select-button) offer both of the classic picker behaviors:
+**selection sets** (a click replaces the selection with the stored set) and **Interactive
+Selection Mode** (buttons continuously mirror the editor selection and click additively — see
+the Select Button page for the full behavior). Selection gathering is deliberately
+rig-agnostic: seeding and interactive matching consider your actual editor selection, not just
+controls belonging to the dropdown's current rig.

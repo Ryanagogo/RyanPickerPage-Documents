@@ -4,42 +4,52 @@ sidebar_position: 10
 
 # Mirror Pose
 
-Mirror Pose reflects an *already-posed* rig across its Left/Right controls — the animation
-equivalent of "select all, mirror pose" — using a page-authored **Pose Map** rather than the
-generic layout [Mirror tool](./editing-tools#mirror-tool).
+*Teach the page its own left/right symmetry once; mirror layouts forever after.*
+
+The [Mirror tool](./editing-tools#mirror) reflects whatever happens to be selected across
+whatever anchor you picked — fine for one-off flips, but it knows nothing about which widgets
+correspond to which. **Mirror Pose** fixes that with a **Pose Map**: a page-level record of
+which widget is the left-side partner of which, where the centerline is, and which widget
+anchors the whole thing. Once mapped, mirroring the layout is one click, every time, with no
+selection gymnastics.
 
 ## The Pose Map
 
-Each page has exactly one Pose Map, authored via the **Pose Map…** dialog on the toolbar (opens a
-modal editor; nothing to pick between — there's only one map per page). It assigns every relevant
-widget one of four roles:
+Authored in the **Pose Map…** dialog (File menu). Each page has exactly one map, holding three
+kinds of entries:
 
-- **Anchor** — the root/pelvis-equivalent widget; mirrors onto itself
-- **Center** — a spine/head/other center-line widget; mirrors onto itself
-- **Left / Right** — paired widgets; mirroring one writes the reflected transform onto its
-  counterpart, leaving the clicked widget untouched
+- **Anchor** — the single widget that defines the mirror axis (its center). Usually a
+  root/pelvis button sitting on the page's centerline. Nothing mirrors until an Anchor is set —
+  the Pose button warns with a toast otherwise.
+- **Center widgets** — spine, head, anything on the centerline. They mirror onto themselves
+  (flipping in place across the axis).
+- **Pairs** — Left/Right widget couples: left thigh ↔ right thigh, and so on.
 
-Mirroring is X-axis only: a widget/pair's position and rotation are reflected across the X axis
-and written onto the target side.
+The dialog's widget dropdowns are alphabetized and searchable, so mapping a large page is
+type-to-filter work rather than scrolling. A **Reset Map** button (with confirmation) clears
+the whole map. The map is saved inside the page file, so it travels with the layout.
 
 ## Using it
 
-- **With a selection**: select one or more widgets that have a role in the Pose Map and trigger
-  Mirror Pose — each selected widget mirrors according to its role.
-- **With no selection**: pick a batch direction from the **Pose Direction** combo box
-  (**Left → Right** or **Right → Left**) and click **Mirror Pose** — it self-mirrors the Anchor
-  and every Center widget, then mirrors every Left/Right pair in the chosen direction across the
-  whole map in one click.
+The Mirror toolbar row carries a **Pose** button and a direction dropdown, past the Mirror
+Horizontal/Vertical buttons.
 
-If no Anchor has been set yet, Mirror Pose shows a warning toast instead of doing anything.
+**With a selection** — clicking **Pose** mirrors each selected widget according to its mapped
+role: a Left or Right widget's position and rotation are reflected across the Anchor's axis and
+written onto its *partner* (the selected side is the source and doesn't move); Center and
+Anchor widgets flip in place. Selected widgets that aren't in the map are skipped with a toast
+while the rest proceed.
 
-Pose Direction is transient, in-memory state — it's not saved to the page file or restored between
-sessions.
+**With nothing selected** — the whole map mirrors in one click, in the direction the dropdown
+says (**Left → Right** by default, or **Right → Left**): the Anchor and every Center widget
+flip in place, and every Pair copies its source side onto its destination side. This is the
+"I finished the left arm, stamp the right arm" button.
 
-## Relationship to the Mirror tool
+The direction dropdown is a transient page control — it isn't saved with the file.
 
-The [Mirror tool](./editing-tools#mirror-tool) is a **canvas layout** operation: it repositions
-selected widgets on the page itself, with no notion of which control each widget drives. Mirror
-Pose is a **pose** operation: it doesn't move anything on the canvas — it drives the Left/Right
-widgets' assigned targets to reflected transform values, using the Pose Map's authored
-relationships to know which widget's value goes where.
+## What it changes — and doesn't
+
+Mirror Pose moves **widget geometry**: canvas position and rotation. Like the Mirror tool, it
+doesn't touch what the widgets are wired to — your right-thigh button keeps driving the right
+thigh; it just gets placed exactly where the left one is, reflected. That's the point:
+retarget once, then keep the two sides visually in lockstep as the layout evolves.

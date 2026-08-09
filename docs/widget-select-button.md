@@ -4,61 +4,83 @@ sidebar_position: 3
 
 # Select Button
 
-The most common widget: a clickable rectangle that selects one or more Control Rig controls
-and/or target actors when clicked in Live Mode.
+*The workhorse: a button that selects things.*
 
-## Behavior
+## In Live Mode
 
-- Click in Live Mode → selects its assigned Control Rig controls (in the rig's control tree /
-  viewport) and target actors (in the level, and in Sequencer if bound), then runs its Python
-  script (if any) — see [Python Scripting](./python-scripting).
-- Supports multiple controls/actors per button (a "group select" button) or exactly one, via
-  **Interactive Selection Mode**.
+Clicking a Select Button selects its assigned Control Rig controls and target actors — in the
+viewport, the rig, and Sequencer where bound — and then runs its
+[Python script](./python-scripting), if it has one. A button can carry one control or a whole
+set ("select all fingers"), and can mix rig controls and plain actors freely.
 
-## Interactive Selection Mode
+**Ctrl-click** toggles instead of replacing: if the button's targets aren't all selected yet,
+they're added to the current selection; if they already are, they're removed from it — the rest
+of your selection is left alone either way.
 
-When enabled on a button, clicking it in Live Mode reads back whatever is *currently selected* in
-the viewport/rig instead of driving a fixed, pre-authored list — useful for a button meant to
-represent "whatever's selected" rather than one specific control. It's intended for exactly one
-item per button; enabling it on a button with more than one assigned control/actor shows a
-warning toast but doesn't truncate anything. See
-[Control Rig & Target Actors](./control-rig-and-targets) for how this interacts with target
-resolution generally.
+## Two selection behaviors
 
-## Attribute Editor fields
+A Select Button operates in one of two modes, switched by the **Interactive Selection Mode**
+checkbox in the Attribute Editor:
 
-- Label / Widget Name
-- Background color, font color, font size
-- Position, size, rotation, corner radius (+ override toggle)
-- Control names (Control Rig controls)
-- Target actors (GUID-based; falls back to Sequencer binding GUID for spawnable actors — see
-  [Control Rig & Target Actors](./control-rig-and-targets#sequencer-spawnables))
-- Interactive Selection Mode toggle
-- Python Script (Base64-encoded on disk, plaintext everywhere in the UI)
+### Selection Set mode (default)
 
-## Blueprint API
+The button is a stored selection set. Click → its targets become the selection. The button
+doesn't track what you select elsewhere.
 
-`URyanPickerSelectButtonFunctionLibrary` (category `Ryan Picker Page|SelectControl`) exposes:
+### Interactive Selection Mode
 
-| Function | Notes |
+The button becomes a live mirror of the editor selection, the way traditional animation pickers
+behave:
+
+- The page polls the current viewport/rig selection several times a second and **lights the
+  button up** whenever its targets are all part of the current selection — select the control in
+  the viewport, and its button highlights on the page by itself.
+- Clicking selects **additively** — the button's targets join whatever is already selected
+  instead of replacing it, so clicking across several interactive buttons builds up a selection.
+- Ctrl-click removes the button's targets from the selection, as above.
+
+This mode is designed for **one control (or one actor) per button**. Enabling it on a button
+with several targets works, but shows a warning toast — a multi-target button can't
+unambiguously mirror a partial selection. Polling only runs while the page's tab is in the
+foreground and Edit Mode is off, so background tabs cost nothing.
+
+New buttons can default to either mode via [Editor Settings](./editor-settings).
+
+## Authoring
+
+With the button selected in Edit Mode, the Attribute Editor exposes:
+
+- **Label** (and whether to show it), widget name, font size
+- **Background color** and **font color**
+- **Control names** — resolved against the page's current rig; see
+  [Control Rig & Target Actors](./control-rig-and-targets)
+- **Target actors** — a resolved, readable summary of every assigned actor
+- **Interactive Selection Mode** checkbox
+- **Python Script** — multi-line; runs after selection on every click
+- Position, size, rotation, corner radius — common to all widgets
+
+New buttons seed their target list from whatever is selected at spawn time (a
+[setting](./editor-settings), on by default) — the fastest authoring loop is *select in
+viewport, add button, done*.
+
+## Scripting
+
+Blueprint functions live on `URyanPickerSelectButtonFunctionLibrary`
+(category `Ryan Picker Page|SelectControl`); common transform/appearance functions are on the
+[shared widget library](./blueprint-api).
+
+| Function | |
 |---|---|
-| `GetControlNames` | Control Rig control names assigned to this button |
-| `GetTargetActorGUIDs` / `GetTargetActorBindingGUIDs` | assigned target actors |
+| `GetControlNames` | assigned rig control names |
+| `GetTargetActorGUIDs` / `GetTargetActorBindingGUIDs` | assigned actors, both identity spaces — see [Sequencer spawnables](./control-rig-and-targets#sequencer-spawnables) |
 | `GetBackgroundColor` / `SetBackgroundColor` | |
 | `GetFontColor` / `SetFontColor` | |
 | `GetFontSize` / `SetFontSize` | |
-| `GetPythonScript` / `SetPythonScript` | the script run on click |
-| `GetInteractiveSelectionMode` / `SetInteractiveSelectionMode` | |
+| `GetPythonScript` / `SetPythonScript` | |
+| `GetInteractiveSelectionMode` / `SetInteractiveSelectionMode` | setter warns (doesn't block) on multi-target buttons |
 
-Position/size/rotation/corner-radius/widget-name getters and setters that apply to *every* widget
-type live on `URyanPickerWidgetFunctionLibrary` instead — see [Blueprint API](./blueprint-api).
-
-### Event hooks
-
-Implement `BI_RyanPickerSelectButton` on a Blueprint subclass to react to:
-
-- `OnSelectButtonConstructed`
-- `OnSelectButtonClicked`
-- `OnControlRigControlsSelected`
-- `OnTargetActorsSelected`
-- (inherited) `OnWidgetSelected`, `OnWidgetHighlighted`, `OnWidgetEditModeChanged`
+Blueprint subclasses can implement the `BI_RyanPickerSelectButton` interface events:
+`OnSelectButtonConstructed`, `OnSelectButtonClicked`, `OnControlRigControlsSelected`,
+`OnTargetActorsSelected`, plus the [three lifecycle events](./blueprint-api#event-hooks) every
+widget type shares. See [Custom widget Blueprints](./blueprint-api#custom-widget-blueprints) for
+how a subclass shows up in the Add Widget menu.
