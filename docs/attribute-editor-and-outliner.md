@@ -13,8 +13,10 @@ A list of everything on the page — click a row to select the widget, double-cl
 right-click for move/delete. Three views, switched by the buttons above the list:
 
 - **By Type** — grouped under the six widget-type headers. The everyday view.
-- **By Layer** — grouped by [Z-order band](./editing-tools#layer-ordering-z-order), in draw
-  order, with move up/down actions — this is where stacking gets rearranged.
+- **By Layer** — grouped by [Layer Group](./editing-tools#layer-groups), in draw order. This is
+  where stacking gets rearranged: drag a widget onto a different group to move it there, drag
+  within a group to reorder, or drag a group header itself to reorder groups. Each group header
+  has its own lock toggle and collapses independently.
 - **By Group** — [Toggle Groups](./widget-toggle#toggle-groups) with their members nested
   under each named header; group renames happen here too.
 
@@ -52,6 +54,20 @@ Widget rounding resolves through a three-level cascade, most specific wins:
 
 Uncustomized widgets follow the cascade live — raise the type default and every non-overridden
 widget of that type updates with it.
+
+## Widget locking
+
+Any widget can be locked — from the Attribute Editor's own checkbox, from a lock icon on its row
+or group header in the Outliner, or via **Lock**/**Unlock Selected** on the right-click menu.
+
+Locking only affects Edit Mode: a locked widget can't be selected, moved, or resized there, and
+its move/resize handles disappear entirely. Live Mode and the Outliner list itself are unaffected
+— a locked widget still works normally when clicked in Live Mode, and you can still see and
+rename it in the Outliner. Locking a [Layer Group](./editing-tools#layer-groups) from its Outliner
+header locks every member the same way.
+
+Locking is meant for widgets you're done positioning and don't want to nudge by accident while
+working around them — a backdrop Image, say, or a finished row of buttons.
 
 ## Live Mode tooltip
 

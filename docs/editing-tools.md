@@ -21,7 +21,11 @@ widgets at once.
 Drag a widget to move it. Drag a handle to resize — resizing behaves correctly on rotated
 widgets too. Drag the rotate handle to spin a widget around its center; rotation is stored in
 degrees, and rotated widgets stay fully functional in Live Mode (a rotated slider drags along
-its rotated axis).
+its rotated axis). Hold Shift while rotating to snap to 15° increments. Rotating a multi-widget
+selection spins the whole group rigidly around a shared pivot (anchored on the last-selected
+widget) while each widget also keeps spinning about its own center.
+
+A locked widget skips all of this — see [Widget locking](./attribute-editor-and-outliner#widget-locking).
 
 Arrow keys nudge the selection (Shift for a larger step; both distances are page Class
 Defaults). The toolbar's **Nudge** tool adds on-screen arrows with their own spinbox-set
@@ -62,12 +66,19 @@ workflow is mirror-then-retarget: mirror the left arm's widgets, then point the 
 right-side controls. For repeatable left/right mirroring that remembers the pairing, see
 [Mirror Pose](./mirror-pose).
 
-## Layer ordering (Z-order)
+## Layer groups
 
-Every widget lives in one of three stacked bands — **Images** at the bottom, **Labels** in the
-middle, interactive **Controls** on top. A backdrop Image can never cover a button, no matter
-when it was added. Within a band, reorder from the Outliner's
-[By Layer view](./attribute-editor-and-outliner) or the right-click menu.
+Every widget belongs to one **Layer Group**, and draw order is just each group's members,
+group-by-group, front to back. Three groups — **Images**, **Labels**, **Controls** — are seeded
+on every page and can't be deleted (deleting any other group reassigns its members back to their
+type's default group instead). Beyond those three you can create, rename, reorder, and lock as
+many groups as you want — a locked group locks every widget in it, same as
+[Widget locking](./attribute-editor-and-outliner#widget-locking) on an individual widget.
+
+Right-click a widget for **Front / Step Up / Step Down / Back**, scoped to its own group. Moving
+a widget between groups, reordering groups themselves, and locking are all done from the
+Outliner's [By Layer view](./attribute-editor-and-outliner#outliner-left) — see that page for the
+full drag-and-drop management UI.
 
 ## Copy, cut, paste
 

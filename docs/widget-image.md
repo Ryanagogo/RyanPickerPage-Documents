@@ -8,9 +8,10 @@ sidebar_position: 8
 
 Images are the visual foundation of a good picker: a character turnaround or body outline
 behind the buttons turns an abstract button grid into something readable at a glance. Like
-[Labels](./widget-label), they have no Live Mode click behavior, and they live in the bottom
-[layer band](./editing-tools#layer-ordering-z-order) so they can never cover an interactive
-control.
+[Labels](./widget-label), they have no Live Mode click behavior, and they start out in the
+**Images** [Layer Group](./editing-tools#layer-groups) — the backmost of the three default
+groups — so a freshly-added Image won't cover an interactive control unless you later reorder
+the groups yourself.
 
 ## Crop pan/zoom
 

@@ -25,6 +25,14 @@ One save carries the whole page: every widget with all its wiring and styling, t
 
 Save and load dialogs reopen in your last-used directories.
 
+## The Help menu
+
+Entries are entirely data-driven — a list of Label/URL/Tooltip items edited in the page's Class
+Defaults panel. Add, remove, reorder, or retarget an entry with no code change or recompile;
+clicking one opens its URL in your OS default browser. One entry is fixed rather than
+data-driven: **About**, which shows the plugin version, the Unreal Engine version, and the
+author in a simple info dialog.
+
 ## Old files keep loading
 
 Save files are schema-versioned. Loading an older file migrates it forward through every
