@@ -19,6 +19,7 @@ a page corner and it always tells the animator which rig this tab is driving.
 - **Text**, font size, font color, **justification**, **auto-wrap**
 - **Background color**, and optionally a background **image** with its own stretch mode and
   [crop pan/zoom](./widget-image#crop-panzoom)
+- **Image Alpha** — opacity of that background image over the background color, 0–1
 - Corner radius: Labels default to square corners (radius 0) but participate in the same
   [rounding cascade](./attribute-editor-and-outliner#corner-radius) as every other type
 - The common position/size/rotation block
@@ -38,6 +39,7 @@ Labels render their background through the same rounded-corner material as
 | `GetBackgroundColor` / `SetBackgroundColor` | |
 | `GetImage` / `SetImage` · `GetStretchMode` / `SetStretchMode` | background image |
 | `GetImageScale` / `SetImageScale` · `GetImageOffset` / `SetImageOffset` | crop pan/zoom |
+| `GetImageAlpha` / `SetImageAlpha` | clamped 0–1 |
 
 Labels have no event-hook interface — there's nothing to click or drag — but all the
 [shared widget functions](./blueprint-api) (position, size, rotation, corner radius, name)

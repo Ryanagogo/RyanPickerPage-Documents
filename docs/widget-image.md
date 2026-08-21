@@ -25,6 +25,8 @@ two controls exist on a Label's background image.
 - **Texture**
 - **Stretch mode** — how the texture fits the widget's rectangle
 - **Image Scale** / **Image Offset** — the crop window
+- **Background color** — sits behind the texture; also what **Image Alpha** blends toward
+- **Image Alpha** — opacity of the texture over the background color, 0–1
 - Corner radius (defaults to square, like Labels)
 - The common position/size/rotation block
 
@@ -44,5 +46,7 @@ types behave pixel-identically and why cropping costs nothing extra.
 | `GetImageTexture` / `SetImageTexture` | |
 | `GetStretchMode` / `SetStretchMode` | |
 | `GetImageScale` / `SetImageScale` · `GetImageOffset` / `SetImageOffset` | crop pan/zoom |
+| `GetBackgroundColor` / `SetBackgroundColor` | |
+| `GetImageAlpha` / `SetImageAlpha` | clamped 0–1 |
 
 No event-hook interface; the [shared widget functions](./blueprint-api) apply.

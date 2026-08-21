@@ -15,7 +15,7 @@ between projects and teammates.
 
 ## Requirements
 
-- Unreal Engine **5.8**
+- Unreal Engine **5.6 – 5.8**
 - These engine plugins enabled (the plugin declares them as dependencies): **Control Rig**,
   **Synthesis**, **Python Editor Script Plugin**
 
