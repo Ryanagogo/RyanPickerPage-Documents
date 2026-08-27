@@ -31,8 +31,6 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          editUrl:
-            'https://github.com/Ryanagogo/RyanPickerPage-Documents/tree/main/',
         },
         blog: false,
         theme: {
