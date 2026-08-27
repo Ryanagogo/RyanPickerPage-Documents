@@ -17,17 +17,25 @@
 const sidebars = {
   tutorialSidebar: [
     'intro',
+    {
+      type: 'category',
+      label: 'Quick Start',
+      link: {type: 'doc', id: 'quick-start'},
+      items: [
+        'quick-start-selection-sets',
+      ],
+    },
     'getting-started',
     {
       type: 'category',
       label: 'Widget Types',
       items: [
         'widget-select-button',
-        'widget-1d-slider',
-        'widget-2d-slider',
         'widget-toggle',
         'widget-label',
         'widget-image',
+        'widget-1d-slider',
+        'widget-2d-slider',
       ],
     },
     {
