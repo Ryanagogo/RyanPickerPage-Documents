@@ -22,6 +22,7 @@ const sidebars = {
       label: 'Quick Start',
       link: {type: 'doc', id: 'quick-start'},
       items: [
+        'quick-start-starting-the-editor',
         'quick-start-selection-sets',
       ],
     },
