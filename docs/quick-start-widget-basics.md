@@ -1,4 +1,4 @@
-﻿# Widget Basics
+# Widget Basics
 
 ### Create Widgets
 
@@ -76,4 +76,4 @@
 - If a widget is selected on the Canvas, then the widget item in the Outliner will also be selected, and vise-versa.
 - If you double click a widget item in the Outliner, you can rename the widget
 - In the Display Layer view, there are checkboxes so you can lock or unlock widgets.  Locked widgets can't be selected in Edit Mode.  This is useful when you multiple widgets stacked on top of each other.
-- If you select a widget in the Outliner, you can use the "f" hotkey to focus the view on the widget.  This can be useful if you are having trouble finding a specific widget.
+- If you select a widget in the Outliner, you can use the "f" hotkey to focus the view on the widget.  This can be useful if you are having trouble finding a specific widget
