@@ -4,11 +4,11 @@
 
 ### Creating a new Selection Button
 
-You must be in Edit Mode to create a new Selection Button
+You must be in **Edit Mode** to create a new **Selection Button**
 
 <img src={useBaseUrl('/img/quick-start/widget-selection-button/go-into-edit-mode.png')} alt="go-into-edit-mode" style={{marginLeft: 0, zoom: ''}} />
 
-Right click in an empty part of the picker Canvas to bring up the popup menu, then click on the "Selection Button" menu item
+**Right click in an empty part of the picker Canvas** to bring up the popup menu, then click on the "Selection Button" menu item
 
 <img src={useBaseUrl('/img/quick-start/widget-selection-button/create-selection-button.png')} alt="create-selection-button" style={{marginLeft: 0, zoom: '67%'}} />
 
@@ -63,9 +63,21 @@ There are two basic ways to select the targets
 
 <img src={useBaseUrl('/img/quick-start/widget-selection-button/select-current.png')} alt="select-current" style={{marginLeft: 0, zoom: '80%'}} />
 
-
-
 ### From the Attribute Editor
+
+To see the values in the Attribute Editor, you need to select one widget
+
+##### Python Script
+
+<img src={useBaseUrl('/img/quick-start/widget-selection-button/python-script.png')} alt="python-script" style={{marginLeft: 0, zoom: '80%'}} />
+
+You can paste any python script in the Script Source field.  If the script is long, the field will expand.
+
+<img src={useBaseUrl('/img/quick-start/widget-selection-button/python-script-example.png')} alt="python-script-example" style={{marginLeft: 0, zoom: '80%'}} />
+
+This field is not very good for editing scripts, and you don't want to put scripts that are too long.  If your script is long, and you want to use a proper script editor, you can just import your script and run it.
+
+<img src={useBaseUrl('/img/quick-start/widget-selection-button/python-script-import.png')} alt="python-script-import" style={{marginLeft: 0, zoom: '80%'}} />
 
 ##### Selection Button Appearance
 
