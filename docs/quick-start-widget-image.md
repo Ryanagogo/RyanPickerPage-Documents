@@ -2,7 +2,7 @@
 
 # Image Widget
 
-### Creating a new Label Widget
+### Creating a new Image Widget
 
 You must be in **Edit Mode** to create a new Image Widget
 
