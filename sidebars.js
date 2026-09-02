@@ -33,7 +33,6 @@ const sidebars = {
         'quick-start-widget-1dslider',
         'quick-start-widget-2dslider',
         'quick-start-technique-mirroring',
-        'quick-start-technique-selection-sets',
         'quick-start-editor-hotkeys',
       ],
     },
