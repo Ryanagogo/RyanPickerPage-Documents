@@ -63,6 +63,24 @@ There are two basic ways to select the targets
 
 <img src={useBaseUrl('/img/quick-start/widget-selection-button/select-current.png')} alt="select-current" style={{marginLeft: 0, zoom: '80%'}} />
 
+##### Selecting other Widgets
+
+There are cases where you want the ability to select other widgets, such as if you set up picker buttons for all the finger joints, and you want to have one button that selects a column or row knuckles.
+
+<img src={useBaseUrl('/img/quick-start/widget-selection-button/select-other-widgets.png')} alt="select-other-widgets" style={{marginLeft: 0, zoom: '50%'}} />
+
+First, make sure you are in Edit Mode, then select all the Target Widgets
+
+<img src={useBaseUrl('/img/quick-start/widget-selection-button/select-target-widgets.png')} alt="select-target-widgets" style={{marginLeft: 0, zoom: '67%'}} />
+
+Second, right click on the Selection Button to bring up the Popup Menu and select "Other Widgets -> "
+
+<img src={useBaseUrl('/img/quick-start/widget-selection-button/set-target-widgets.png')} alt="set-target-widgets" style={{marginLeft: 0, zoom: '67%'}} />
+
+After you are back in Live Mode, when you click on the Select Button, it will select the Target Widgets and all the Targets in those widgets.
+
+<img src={useBaseUrl('/img/quick-start/widget-selection-button/live-select-other-widgets.png')} alt="live-select-other-widgets" style={{marginLeft: 0, zoom: '67%'}} />
+
 ### From the Attribute Editor
 
 To see the values in the Attribute Editor, you need to select one widget
