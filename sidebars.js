@@ -24,6 +24,7 @@ const sidebars = {
       items: [
         'quick-start-starting-the-editor',
         'quick-start-editor-basics',
+        'quick-start-bugs-feedback',
         'quick-start-editor-toolbar',
         'quick-start-widget-basics',
         'quick-start-widget-selection-button',
