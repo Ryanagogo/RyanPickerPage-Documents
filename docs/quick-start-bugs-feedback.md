@@ -14,7 +14,7 @@ When you click on the Help Menu, you should see a number of useful menu items, i
 
 With each of these items, when you click on them, they will open a link in your web browser so you can fill out a form.
 
-Suggest a Feature and Report a Bug will add items directly to my ticket tracking system, and Contact Me will sent a message to my business email.
+Suggest a Feature and Report a Bug will add items directly to my ticket tracking system, and Contact Me will send a message to my business email.
 
 You can also use these links to get to those specific forms:
 
