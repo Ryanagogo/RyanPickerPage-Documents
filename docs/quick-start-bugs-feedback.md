@@ -22,8 +22,14 @@ You can also use these links to get to those specific forms:
 - **[Suggest a Feature](https://tally.so/r/D4RjLp)**
 - **[Contact Me](https://tally.so/r/RG9N6l)**
 
+Feature Request Form
+
 <img src={useBaseUrl('/img/quick-start/help-menu/feature-request.png')} alt="feature-request" style={{marginLeft: 0, zoom: '50%'}} />
 
+Bug Report Form
+
 <img src={useBaseUrl('/img/quick-start/help-menu/bug-report.png')} alt="bug-report" style={{marginLeft: 0, zoom: '50%'}} />
+
+Contact Me Form
 
 <img src={useBaseUrl('/img/quick-start/help-menu/contact-me.png')} alt="contact-me" style={{marginLeft: 0, zoom: '50%'}} />
