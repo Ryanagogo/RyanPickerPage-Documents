@@ -83,6 +83,12 @@ admonitions (`:::note`) ⇄ GFM alert blockquotes (`> [!NOTE]`); and MDX-hostile
 `<` in prose. A leading UTF-8 BOM (Typora writes one) is preserved at byte 0. Constructs it
 can't safely convert are reported as `needs-review` and left untouched.
 
+Going to Docusaurus only, `/ctd` also recognises the absolute filesystem path Typora writes
+into `src` once you've moved a pasted image into `static/img/…` (backslashes and all), and
+overwrites `alt` to that file's name — no more hand-fixing either one. An absolute path that
+isn't under this repo's `static/img/` (e.g. still sitting in Typora's own paste-cache folder)
+is reported as `needs-review` instead of silently left as a dead link.
+
 ## Two doc sets, one in progress
 
 - **Stable narrative set**: `intro.md`, `getting-started.md`, `widget-*.md`,
