@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Quick Start": {
+    "message": "빠른 시작",
+    "description": "The label for category 'Quick Start' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Edit Mode Toolbar": {
+    "message": "편집 모드 툴바",
+    "description": "The label for category 'Edit Mode Toolbar' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.How To Do": {
+    "message": "사용 방법",
+    "description": "The label for category 'How To Do' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Widget Types": {
+    "message": "위젯 유형",
+    "description": "The label for category 'Widget Types' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Editing & Selection": {
+    "message": "편집 및 선택",
+    "description": "The label for category 'Editing & Selection' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Integration": {
+    "message": "통합",
+    "description": "The label for category 'Integration' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Data & Configuration": {
+    "message": "데이터 및 구성",
+    "description": "The label for category 'Data & Configuration' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Scripting": {
+    "message": "스크립팅",
+    "description": "The label for category 'Scripting' in sidebar 'tutorialSidebar'"
+  }
+}

@@ -14,6 +14,8 @@ Every keyboard shortcut and mouse gesture the picker editor responds to.
 |---|---|---|
 | **Delete** | Delete the selected widgets | Edit only |
 | **F** | Center the canvas view on the current selection (zoom is left unchanged) | Edit + Live |
+| **Alt + Button Click** | Center the Viewport on the objects selected when clicking on a Button |Live only|
+| **Alt + Drag Select Buttons** | Center the Viewport on the objects selected when drag selecting buttons |Live only|
 | **Arrow keys** | Nudge the selection (default 2 px) | Edit only |
 | **Shift + Arrow keys** | Nudge the selection by a larger step (default 10 px) | Edit only |
 | **Ctrl + X** | Cut the selected widgets | Edit only |

@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Quick Start": {
+    "message": "Hızlı Başlangıç",
+    "description": "The label for category 'Quick Start' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Edit Mode Toolbar": {
+    "message": "Düzenleme Modu Araç Çubuğu",
+    "description": "The label for category 'Edit Mode Toolbar' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.How To Do": {
+    "message": "Nasıl Yapılır",
+    "description": "The label for category 'How To Do' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Widget Types": {
+    "message": "Widget Türleri",
+    "description": "The label for category 'Widget Types' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Editing & Selection": {
+    "message": "Düzenleme ve Seçim",
+    "description": "The label for category 'Editing & Selection' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Integration": {
+    "message": "Entegrasyon",
+    "description": "The label for category 'Integration' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Data & Configuration": {
+    "message": "Veri ve Yapılandırma",
+    "description": "The label for category 'Data & Configuration' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Scripting": {
+    "message": "Betik Yazma",
+    "description": "The label for category 'Scripting' in sidebar 'tutorialSidebar'"
+  }
+}

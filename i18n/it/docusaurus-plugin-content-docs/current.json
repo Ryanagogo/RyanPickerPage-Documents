@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Quick Start": {
+    "message": "Avvio rapido",
+    "description": "The label for category 'Quick Start' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Edit Mode Toolbar": {
+    "message": "Barra degli strumenti della modalità di modifica",
+    "description": "The label for category 'Edit Mode Toolbar' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.How To Do": {
+    "message": "Come fare",
+    "description": "The label for category 'How To Do' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Widget Types": {
+    "message": "Tipi di widget",
+    "description": "The label for category 'Widget Types' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Editing & Selection": {
+    "message": "Modifica e selezione",
+    "description": "The label for category 'Editing & Selection' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Integration": {
+    "message": "Integrazione",
+    "description": "The label for category 'Integration' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Data & Configuration": {
+    "message": "Dati e configurazione",
+    "description": "The label for category 'Data & Configuration' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Scripting": {
+    "message": "Scripting",
+    "description": "The label for category 'Scripting' in sidebar 'tutorialSidebar'"
+  }
+}

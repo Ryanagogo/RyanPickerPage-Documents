@@ -37,6 +37,33 @@ const sidebars = {
         'quick-start-editor-hotkeys',
       ],
     },
+    // {
+    //   type: 'category',
+    //   label: 'Edit Mode Toolbar',
+    //   link: {type: 'doc', id: 'editmode-toolbar'},
+    //   items: [
+    //       'editmode-toolbar-image',
+    //       'editmode-toolbar-color',
+    //       'editmode-toolbar-label',
+    //       'editmode-toolbar-size',
+    //       'editmode-toolbar-nudge',
+    //       'editmode-toolbar-align',
+    //       'editmode-toolbar-mirror',
+    //       'editmode-toolbar-widgets',
+    //   ],
+    // },
+    //{
+    //  type: 'category',
+    //  label: 'How To Do',
+    //  items: [
+    //      'how-to-selection-buttons',
+    //      'how-to-toggle-buttons',
+    //      'how-to-1dsliders',
+    //      'how-to-2dsliders',
+    //      'how-to-images',
+    //      'how-to-labels',
+    //  ],
+    //},
     'getting-started',
     {
       type: 'category',

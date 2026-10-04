@@ -21,9 +21,26 @@ const config = {
 
   trailingSlash: false,
 
+  // Same cultures as the plugin's Config/Localization/RyanPickerPage.ini (CulturesToGenerate).
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'de', 'es', 'es-419', 'fr', 'it', 'pl', 'pt-BR', 'ru', 'tr', 'ar', 'ja', 'ko', 'zh-Hans'],
+    localeConfigs: {
+      en: {label: 'English'},
+      de: {label: 'Deutsch'},
+      es: {label: 'Español (España)'},
+      'es-419': {label: 'Español (Latinoamérica)', htmlLang: 'es-419'},
+      fr: {label: 'Français'},
+      it: {label: 'Italiano'},
+      pl: {label: 'Polski'},
+      'pt-BR': {label: 'Português (Brasil)'},
+      ru: {label: 'Русский'},
+      tr: {label: 'Türkçe'},
+      ar: {label: 'العربية', direction: 'rtl'},
+      ja: {label: '日本語'},
+      ko: {label: '한국어'},
+      'zh-Hans': {label: '简体中文', htmlLang: 'zh-Hans'},
+    },
   },
 
   presets: [
@@ -61,6 +78,10 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Docs',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
           },
           {
             href: 'https://github.com/Ryanagogo/RyanPickerPage-Documents',

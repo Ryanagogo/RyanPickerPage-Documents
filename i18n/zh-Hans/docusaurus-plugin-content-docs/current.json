@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Quick Start": {
+    "message": "快速入门",
+    "description": "The label for category 'Quick Start' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Edit Mode Toolbar": {
+    "message": "编辑模式工具栏",
+    "description": "The label for category 'Edit Mode Toolbar' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.How To Do": {
+    "message": "操作指南",
+    "description": "The label for category 'How To Do' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Widget Types": {
+    "message": "部件类型",
+    "description": "The label for category 'Widget Types' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Editing & Selection": {
+    "message": "编辑与选择",
+    "description": "The label for category 'Editing & Selection' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Integration": {
+    "message": "集成",
+    "description": "The label for category 'Integration' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Data & Configuration": {
+    "message": "数据与配置",
+    "description": "The label for category 'Data & Configuration' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Scripting": {
+    "message": "脚本",
+    "description": "The label for category 'Scripting' in sidebar 'tutorialSidebar'"
+  }
+}
